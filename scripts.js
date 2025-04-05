@@ -22,31 +22,45 @@ const operations = {
     divide: "÷",
 };
 
+function numberInput(id) {
+    if (id in numbers) {
+        // IF firstNum exists, concatenate
+        if (calculator.firstNum === null) {
+            calculator.firstNum = numbers[id];
+            display.textContent = calculator.firstNum;
+        } else if (calculator.firstNum != null && calculator.operator === null){
+            calculator.firstNum += numbers[id];
+            display.textContent = calculator.firstNum;
+        } else if (calculator.firstNum && calculator.operator && calculator.secondNum === null) {
+            calculator.secondNum = numbers[id];
+            display.textContent = calculator.firstNum + operations[calculator.operator] + calculator.secondNum;
+        } else if (calculator.firstNum && calculator.operator && calculator.secondNum) {
+            calculator.secondNum += numbers[id];
+            display.textContent = calculator.firstNum + operations[calculator.operator] + calculator.secondNum;
+        }
+    }
+}
+
+function operatorInput(id) {
+    calculator.operator = id;
+    display.textContent = calculator.firstNum + operations[id];
+}
+
+function calculateInput(id) {
+    calculator.answer = calculator.calculate(calculator.operator, calculator.firstNum, calculator.secondNum);
+    display.textContent = calculator.answer;
+}
+
+
+// EVENT listener for buttons
 buttons.forEach((button) => {
     button.addEventListener("click", () => {
-        // CHECK for input
         if (button.id in numbers) {
-            // IF firstNum exists, concatenate
-            if (calculator.firstNum === null) {
-                calculator.firstNum = numbers[button.id];
-                display.textContent = calculator.firstNum;
-            } else if (calculator.firstNum != null && calculator.operator === null){
-                calculator.firstNum += numbers[button.id];
-                display.textContent = calculator.firstNum;
-            } else if (calculator.firstNum && calculator.operator && calculator.secondNum === null) {
-                calculator.secondNum = numbers[button.id];
-                display.textContent = calculator.firstNum + operations[calculator.operator] + calculator.secondNum;
-            } else if (calculator.firstNum && calculator.operator && calculator.secondNum) {
-                calculator.secondNum += numbers[button.id];
-                display.textContent = calculator.firstNum + operations[calculator.operator] + calculator.secondNum;
-            }
-        // IF input is operator, move onto populating calculator.operator
+            numberInput(button.id);
         } else if (button.id in operations) {
-            calculator.operator = button.id;
-            display.textContent = calculator.firstNum + operations[button.id];
+            operatorInput(button.id);
         } else if (button.id = "calculate") {
-            calculator.answer = calculator.calculate(calculator.operator, calculator.firstNum, calculator.secondNum);
-            display.textContent = calculator.answer;
+            calculateInput(button.id);
         }
     });
 });
