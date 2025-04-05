@@ -56,6 +56,20 @@ function acInput() {
     display.textContent = "";
 }
 
+function deleteInput() {
+    if (calculator.secondNum != null) {
+        calculator.secondNum = calculator.secondNum.slice(0, -1);
+        display.textContent = calculator.firstNum + operations[calculator.operator] + calculator.secondNum;
+    } else if (calculator.operator != null && calculator.secondNum === null) {
+        calculator.operator = null;
+        display.textContent = calculator.firstNum;
+    } else if (calculator.firstNum != null && calculator.operator === null) {
+        calculator.firstNum = calculator.firstNum.slice(0, -1);
+        display.textContent = calculator.firstNum;
+        console.log(calculator.firstNum);
+    }
+}
+
 
 // EVENT listener for buttons
 buttons.forEach((button) => {
@@ -68,6 +82,8 @@ buttons.forEach((button) => {
             calculateInput(button.id);
         } else if (button.id === "clear") {
             acInput();
+        } else if (button.id === "delete") {
+            deleteInput();
         }
     });
 });
