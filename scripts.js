@@ -34,10 +34,11 @@ buttons.forEach((button) => {
                 calculator.firstNum += numbers[button.id];
                 display.textContent = calculator.firstNum;
             }
+        // IF input is operator, move onto populating calculator.operator
         } else if (button.id in operations) {
             calculator.operator = button.id;
             console.log(calculator);
-            display.textContent = calculator.firstNum + " " + operations[button.id];
+            display.textContent = calculator.firstNum + operations[button.id];
         }
     })
 });
