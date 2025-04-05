@@ -22,7 +22,7 @@ body {
 
 .calculator-container {
     background-color: #352b2c;
-    width: 800px;
+    width: 450px;
     height: 500px;
     border-radius: 25px;
     flex-direction: column;
@@ -35,4 +35,33 @@ body {
     width: 90%;
     height: 70px;
     margin-top: 25px;
+    margin-bottom: 25px;
+}
+
+.button-container {
+
+}
+
+.nums {
+    flex-direction: column;
+}
+
+.operations-one, .operations-two {
+    flex-direction: column;
+}
+
+.btn {
+    height: 80px;
+    width: 80px;
+    background-color: #fdf3da;
+}
+
+.add {
+    height:160px;
+    background-color: #6e5247;
+    color: #c79b81;
+}
+
+.clear {
+    color: #f85d11;
 }
