@@ -20,7 +20,7 @@ const operations = {
     subtract: "−",
     multiply: "×",
     divide: "÷",
-}
+};
 
 buttons.forEach((button) => {
     button.addEventListener("click", () => {
@@ -30,17 +30,23 @@ buttons.forEach((button) => {
             if (calculator.firstNum === null) {
                 calculator.firstNum = numbers[button.id];
                 display.textContent = calculator.firstNum;
-            } else {
+            } else if (calculator.firstNum != null && calculator.operator === null){
                 calculator.firstNum += numbers[button.id];
                 display.textContent = calculator.firstNum;
+            } else if (calculator.firstNum && calculator.operator && calculator.secondNum === null) {
+                calculator.secondNum = numbers[button.id];
+                display.textContent = calculator.firstNum + operations[calculator.operator] + calculator.secondNum;
+            } else if (calculator.firstNum && calculator.operator && calculator.secondNum) {
+                calculator.secondNum += numbers[button.id];
+                display.textContent = calculator.firstNum + operations[calculator.operator] + calculator.secondNum;
             }
         // IF input is operator, move onto populating calculator.operator
         } else if (button.id in operations) {
             calculator.operator = button.id;
             console.log(calculator);
             display.textContent = calculator.firstNum + operations[button.id];
-        }
-    })
+        } 
+    });
 });
 
 const calculator = {
@@ -66,7 +72,5 @@ const calculator = {
 
     calculate: function(operator, firstNum, secondNum) {
         return operator(firstNum, secondNum);
-    },
-
-    
+    }, 
 };
