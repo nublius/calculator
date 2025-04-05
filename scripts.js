@@ -43,9 +43,11 @@ buttons.forEach((button) => {
         // IF input is operator, move onto populating calculator.operator
         } else if (button.id in operations) {
             calculator.operator = button.id;
-            console.log(calculator);
             display.textContent = calculator.firstNum + operations[button.id];
-        } 
+        } else if (button.id = "calculate") {
+            calculator.answer = calculator.calculate(calculator.operator, calculator.firstNum, calculator.secondNum);
+            display.textContent = calculator.answer;
+        }
     });
 });
 
@@ -53,6 +55,7 @@ const calculator = {
     firstNum: null,
     operator: null,
     secondNum: null,
+    answer: null,
 
     add: function(a, b) {
         return a + b;
@@ -71,6 +74,6 @@ const calculator = {
     },
 
     calculate: function(operator, firstNum, secondNum) {
-        return operator(firstNum, secondNum);
+        return calculator[operator](parseInt(firstNum), parseInt(secondNum));
     }, 
 };
