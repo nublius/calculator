@@ -13,3 +13,9 @@ function multiply(a, b) {
 function divide(a, b) {
     return a / b;
 }
+
+let firstNum, operator, secondNum;
+
+function operate(operator, firstNum, secondNum) {
+   return operator(firstNum, secondNum);
+}
