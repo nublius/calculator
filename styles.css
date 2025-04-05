@@ -69,10 +69,21 @@ body {
     border: 2px solid #715c44;
     border-radius: 20px;
     margin: 2px;
+    box-shadow: 1px -1px 2px 0 hsla(0, 0%, 0%, 0.06),
+                3px -3px 4px 0 hsla(0, 0%, 0%, 0.08);
+    transform-origin: bottom center;
+}
+
+.op {
+    background-color: #9a8071;
 }
 
 .btn:active {
-    border: 2px solid #36241d;
+    box-shadow: 0 0 1px 0 hsla(0, 0%, 0%, 0.06),
+                1px -1px 1px 0 hsla(0, 0%, 0%, 0.08);
+    transform: 
+      translatey(0.20em) 
+      scale(0.98);
 }
 
 #add {

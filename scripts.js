@@ -14,7 +14,11 @@ function divide(a, b) {
     return a / b;
 }
 
-let firstNum, operator, secondNum;
+const calculator = {
+    firstNum: null;
+    operator: null;
+    secondNum: null;
+};
 
 function operate(operator, firstNum, secondNum) {
    return operator(firstNum, secondNum);
