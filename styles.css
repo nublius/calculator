@@ -63,5 +63,6 @@ body {
 }
 
 .clear {
-    color: #f85d11;
+    background-color: #f85d11;
+    color: #fdf3da;
 }
