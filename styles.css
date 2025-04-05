@@ -23,5 +23,16 @@ body {
 .calculator-container {
     background-color: #352b2c;
     width: 800px;
-    height: 400px;
+    height: 500px;
+    border-radius: 25px;
+    flex-direction: column;
+    align-items: center;
+}
+
+.display {
+    background-color: #d5dad4;
+    border-radius: 5px;
+    width: 90%;
+    height: 70px;
+    margin-top: 25px;
 }
