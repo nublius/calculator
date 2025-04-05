@@ -58,15 +58,25 @@ function acInput() {
 
 function deleteInput() {
     if (calculator.secondNum != null) {
+        if (calculator.secondNum.length === 1) {
+            calculator.secondNum = null;
+            display.textContent = calculator.firstNum + operations[calculator.operator];
+            console.log(calculator.secondNum);
+        } else {
         calculator.secondNum = calculator.secondNum.slice(0, -1);
         display.textContent = calculator.firstNum + operations[calculator.operator] + calculator.secondNum;
+        }
     } else if (calculator.operator != null && calculator.secondNum === null) {
         calculator.operator = null;
         display.textContent = calculator.firstNum;
     } else if (calculator.firstNum != null && calculator.operator === null) {
+       if (calculator.firstNum.length === 1) {
+        calculator.firstNum = null;
+        display.textContent = "";
+       } else {
         calculator.firstNum = calculator.firstNum.slice(0, -1);
         display.textContent = calculator.firstNum;
-        console.log(calculator.firstNum);
+       }
     }
 }
 
