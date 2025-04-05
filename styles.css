@@ -1,3 +1,8 @@
+@font-face {
+    font-family: 'technology';
+    src: url('Technology.ttf');
+}
+
 * {
     margin: 0px;
     padding: 0px;
@@ -39,6 +44,14 @@ body {
     margin-top: 25px;
     margin-bottom: 25px;
     border: 1px solid grey;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.display-text {
+    font-size: 50px;
+    font-family: technology;
+    margin-right: 10px;
 }
 
 .nums {
