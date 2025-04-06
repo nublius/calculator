@@ -55,8 +55,7 @@ function posnegInput() {
 function decimalInput() {
     if (calculator.secondNum) {
         if (calculator.secondNum.includes('.')) {
-            acInput();
-            display.textContent = "ERROR!";
+            // DO NOTHING
         } else {
             calculator.secondNum += ".";
             display.textContent = calculator.firstNum + operations[calculator.operator] + calculator.secondNum;
@@ -66,8 +65,7 @@ function decimalInput() {
         display.textContent = calculator.firstNum + operations[calculator.operator] + calculator.secondNum;
     } else if (calculator.firstNum && !calculator.operator) {
         if (calculator.firstNum.includes('.')) {
-            acInput();
-            display.textContent = "ERROR!";
+            // DO NOTHING
         } else {
             calculator.firstNum += ".";
             display.textContent = calculator.firstNum;
@@ -90,7 +88,8 @@ function operatorInput(id) {
 }
 
 function calculateInput() {
-    if (calculator.operator === "divide" && calculator.secondNum === "0") {
+    if (calculator.operator === "divide" && parseInt(calculator.secondNum) === 0) {
+        acInput();
         display.textContent = "80085";
     } else {
         calculator.answer = calculator.calculate(calculator.operator, calculator.firstNum, calculator.secondNum);
