@@ -58,10 +58,16 @@ function numberInput(id) {
 // TRANSFORM current number to positive/negative
 function posnegInput() {
     if (calculator.secondNum) {
-        calculator.secondNum *= -1;
+        calculator.secondNum = (calculator.secondNum * -1).toString();
         updateDisplay();
+    } else if (calculator.firstNum && calculator.operator && !calculator.secondNum) {
+        calculator.secondNum = "-";
+        updateDisplay;
     } else if (calculator.firstNum && !calculator.operator) {
-        calculator.firstNum *= -1;
+        calculator.firstNum = (calculator.firstNum * -1).toString();
+        updateDisplay();
+    } else if (!calculator.firstNum) {
+        calculator.firstNum = "-";
         updateDisplay();
     }
 }
@@ -99,7 +105,7 @@ function operatorInput(id) {
         calculateInput();
         calculator.operator = id;
         updateDisplay();
-    } else {
+    } else if (calculator.firstNum ) {
         calculator.operator = id;
         updateDisplay();
     }
@@ -112,7 +118,7 @@ function calculateInput() {
         display.textContent = "80085";
     } else {
         calculator.answer = calculator.calculate(calculator.operator, calculator.firstNum, calculator.secondNum);
-        calculator.firstNum = calculator.answer;
+        calculator.firstNum = calculator.answer.toString();
         calculator.secondNum = null;
         calculator.operator = null;
         display.textContent = calculator.answer; 
@@ -199,9 +205,6 @@ const calculator = {
     },
 
     calculate: function(operator, firstNum, secondNum) {
-        firstNum = firstNum.toString();
-        secondNum = secondNum.toString();
-
         if (firstNum.includes('.') || secondNum.includes('.')) {
             return calculator[operator](parseFloat(firstNum), parseFloat(secondNum)).toFixed(4);
         } else {
