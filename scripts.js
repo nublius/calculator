@@ -39,13 +39,24 @@ function numberInput(id) {
 }
 
 function operatorInput(id) {
-    calculator.operator = id;
-    display.textContent = calculator.firstNum + operations[id];
+    if (calculator.operator && calculator.secondNum) {
+        calculateInput();
+    } else {
+        calculator.operator = id;
+        display.textContent = calculator.firstNum + operations[id];
+    }
 }
 
-function calculateInput(id) {
-    calculator.answer = calculator.calculate(calculator.operator, calculator.firstNum, calculator.secondNum);
-    display.textContent = calculator.answer;
+function calculateInput() {
+    if (calculator.operator === "divide" && calculator.secondNum === "0") {
+        display.textContent = "80085";
+    } else {
+        calculator.answer = calculator.calculate(calculator.operator, calculator.firstNum, calculator.secondNum);
+        calculator.firstNum = calculator.answer;
+        calculator.secondNum = null;
+        calculator.operator = null;
+        display.textContent = calculator.answer; 
+    }
 }
 
 function acInput() {
@@ -61,7 +72,6 @@ function deleteInput() {
         if (calculator.secondNum.length === 1) {
             calculator.secondNum = null;
             display.textContent = calculator.firstNum + operations[calculator.operator];
-            console.log(calculator.secondNum);
         } else {
         calculator.secondNum = calculator.secondNum.slice(0, -1);
         display.textContent = calculator.firstNum + operations[calculator.operator] + calculator.secondNum;
@@ -89,7 +99,7 @@ buttons.forEach((button) => {
         } else if (button.id in operations) {
             operatorInput(button.id);
         } else if (button.id === "calculate") {
-            calculateInput(button.id);
+            calculateInput();
         } else if (button.id === "clear") {
             acInput();
         } else if (button.id === "delete") {
