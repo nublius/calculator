@@ -81,6 +81,8 @@ function decimalInput() {
 function operatorInput(id) {
     if (calculator.operator && calculator.secondNum) {
         calculateInput();
+        calculator.operator = id;
+        display.textContent = calculator.firstNum + operations[id];
     } else {
         calculator.operator = id;
         display.textContent = calculator.firstNum + operations[id];
@@ -179,6 +181,7 @@ const calculator = {
     calculate: function(operator, firstNum, secondNum) {
         firstNum = firstNum.toString();
         secondNum = secondNum.toString();
+
         if (firstNum.includes('.') || secondNum.includes('.')) {
             return calculator[operator](parseFloat(firstNum), parseFloat(secondNum));
         } else {
