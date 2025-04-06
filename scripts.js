@@ -32,6 +32,8 @@ function updateDisplay() {
     }
 }
 
+
+// ADD number to current variable
 function numberInput(id) {
     if (!calculator.firstNum) {
         calculator.firstNum = numbers[id];
@@ -52,6 +54,8 @@ function numberInput(id) {
     }
 }
 
+
+// TRANSFORM current number to positive/negative
 function posnegInput() {
     if (calculator.secondNum) {
         calculator.secondNum *= -1;
@@ -62,6 +66,8 @@ function posnegInput() {
     }
 }
 
+
+// ADD decimal point to current number
 function decimalInput() {
     if (calculator.secondNum) {
         if (calculator.secondNum.includes('.')) {
@@ -86,6 +92,8 @@ function decimalInput() {
     }
 }
 
+
+// ADD operator for calculation
 function operatorInput(id) {
     if (calculator.operator && calculator.secondNum) {
         calculateInput();
@@ -97,6 +105,7 @@ function operatorInput(id) {
     }
 }
 
+// PERFORM calculation
 function calculateInput() {
     if (calculator.operator === "divide" && parseFloat(calculator.secondNum) === 0) {
         clearInput();
@@ -110,6 +119,7 @@ function calculateInput() {
     }
 }
 
+// RESET all variables
 function clearInput() {
     calculator.firstNum = null;
     calculator.secondNum = null;
@@ -118,6 +128,8 @@ function clearInput() {
     display.textContent = "";
 }
 
+
+// DELETE a number or operator
 function deleteInput() {
     if (calculator.secondNum) {
         if (calculator.secondNum.length === 1) {
@@ -162,7 +174,6 @@ buttons.forEach((button) => {
         }
     });
 });
-
 
 // DECLARE calculator object w/ variables and methods
 const calculator = {
