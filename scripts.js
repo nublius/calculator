@@ -52,6 +52,32 @@ function posnegInput() {
     }
 }
 
+function decimalInput() {
+    if (calculator.secondNum) {
+        if (calculator.secondNum.includes('.')) {
+            acInput();
+            display.textContent = "ERROR!";
+        } else {
+            calculator.secondNum += ".";
+            display.textContent = calculator.firstNum + operations[calculator.operator] + calculator.secondNum;
+        }
+    } else if (calculator.firstNum && calculator.operator && !calculator.secondNum) {
+        calculator.secondNum = "0.";
+        display.textContent = calculator.firstNum + operations[calculator.operator] + calculator.secondNum;
+    } else if (calculator.firstNum && !calculator.operator) {
+        if (calculator.firstNum.includes('.')) {
+            acInput();
+            display.textContent = "ERROR!";
+        } else {
+            calculator.firstNum += ".";
+            display.textContent = calculator.firstNum;
+        }
+    } else if (!calculator.firstNum) {
+        calculator.firstNum = "0.";
+        display.textContent = calculator.firstNum;
+    }
+}
+
 function operatorInput(id) {
     if (calculator.operator && calculator.secondNum) {
         calculateInput();
@@ -120,6 +146,8 @@ buttons.forEach((button) => {
             deleteInput();
         } else if (button.id === "posneg") {
             posnegInput();
+        } else if (button.id === "decimal") {
+            decimalInput();
         }
     });
 });
