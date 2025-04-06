@@ -26,6 +26,10 @@ function numberInput(id) {
     if (calculator.firstNum === null) {
         calculator.firstNum = numbers[id];
         display.textContent = calculator.firstNum;
+    } else if (calculator.answer) {
+        calculator.answer = null;
+        calculator.firstNum = numbers[id];
+        display.textContent = calculator.firstNum;
     } else if (calculator.firstNum != null && calculator.operator === null){
         calculator.firstNum += numbers[id];
         display.textContent = calculator.firstNum;
