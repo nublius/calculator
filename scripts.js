@@ -42,6 +42,16 @@ function numberInput(id) {
     }
 }
 
+function posnegInput() {
+    if (calculator.secondNum) {
+        calculator.secondNum *= -1;
+        display.textContent = calculator.firstNum + operations[calculator.operator] + calculator.secondNum;
+    } else if (calculator.firstNum && !calculator.operator) {
+        calculator.firstNum *= -1;
+        display.textContent = calculator.firstNum;
+    }
+}
+
 function operatorInput(id) {
     if (calculator.operator && calculator.secondNum) {
         calculateInput();
@@ -108,6 +118,8 @@ buttons.forEach((button) => {
             acInput();
         } else if (button.id === "delete") {
             deleteInput();
+        } else if (button.id === "posneg") {
+            posnegInput();
         }
     });
 });
