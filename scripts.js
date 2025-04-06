@@ -22,33 +22,43 @@ const operations = {
     divide: "÷",
 };
 
-function numberInput(id) {
-    if (calculator.firstNum === null) {
-        calculator.firstNum = numbers[id];
+function updateDisplay() {
+    if (calculator.secondNum) {
+        display.textContent = calculator.firstNum + operations[calculator.operator] + calculator.secondNum;
+    } else if (calculator.operator && !calculator.secondNum) {
+        display.textContent = calculator.firstNum + operations[calculator.operator];
+    } else if (calculator.firstNum && !calculator.operator) {
         display.textContent = calculator.firstNum;
+    }
+}
+
+function numberInput(id) {
+    if (!calculator.firstNum) {
+        calculator.firstNum = numbers[id];
+        updateDisplay();
     } else if (calculator.answer && !calculator.operator) {
         calculator.answer = null;
         calculator.firstNum = numbers[id];
-        display.textContent = calculator.firstNum;
-    } else if (calculator.firstNum != null && calculator.operator === null){
+        updateDisplay();
+    } else if (calculator.firstNum && !calculator.operator){
         calculator.firstNum += numbers[id];
-        display.textContent = calculator.firstNum;
-    } else if (calculator.firstNum && calculator.operator && calculator.secondNum === null) {
+        updateDisplay();
+    } else if (calculator.firstNum && calculator.operator && !calculator.secondNum) {
         calculator.secondNum = numbers[id];
-        display.textContent = calculator.firstNum + operations[calculator.operator] + calculator.secondNum;
+        updateDisplay();
     } else if (calculator.firstNum && calculator.operator && calculator.secondNum) {
         calculator.secondNum += numbers[id];
-        display.textContent = calculator.firstNum + operations[calculator.operator] + calculator.secondNum;
+        updateDisplay();
     }
 }
 
 function posnegInput() {
     if (calculator.secondNum) {
         calculator.secondNum *= -1;
-        display.textContent = calculator.firstNum + operations[calculator.operator] + calculator.secondNum;
+        updateDisplay();
     } else if (calculator.firstNum && !calculator.operator) {
         calculator.firstNum *= -1;
-        display.textContent = calculator.firstNum;
+        updateDisplay();
     }
 }
 
@@ -58,21 +68,21 @@ function decimalInput() {
             // DO NOTHING
         } else {
             calculator.secondNum += ".";
-            display.textContent = calculator.firstNum + operations[calculator.operator] + calculator.secondNum;
+            updateDisplay();
         }
     } else if (calculator.firstNum && calculator.operator && !calculator.secondNum) {
         calculator.secondNum = "0.";
-        display.textContent = calculator.firstNum + operations[calculator.operator] + calculator.secondNum;
+        updateDisplay();
     } else if (calculator.firstNum && !calculator.operator) {
         if (calculator.firstNum.includes('.')) {
             // DO NOTHING
         } else {
             calculator.firstNum += ".";
-            display.textContent = calculator.firstNum;
+            updateDisplay();
         }
     } else if (!calculator.firstNum) {
         calculator.firstNum = "0.";
-        display.textContent = calculator.firstNum;
+        updateDisplay();
     }
 }
 
@@ -80,16 +90,16 @@ function operatorInput(id) {
     if (calculator.operator && calculator.secondNum) {
         calculateInput();
         calculator.operator = id;
-        display.textContent = calculator.firstNum + operations[id];
+        updateDisplay();
     } else {
         calculator.operator = id;
-        display.textContent = calculator.firstNum + operations[id];
+        updateDisplay();
     }
 }
 
 function calculateInput() {
-    if (calculator.operator === "divide" && parseInt(calculator.secondNum) === 0) {
-        acInput();
+    if (calculator.operator === "divide" && parseFloat(calculator.secondNum) === 0) {
+        clearInput();
         display.textContent = "80085";
     } else {
         calculator.answer = calculator.calculate(calculator.operator, calculator.firstNum, calculator.secondNum);
@@ -100,7 +110,7 @@ function calculateInput() {
     }
 }
 
-function acInput() {
+function clearInput() {
     calculator.firstNum = null;
     calculator.secondNum = null;
     calculator.operator = null;
@@ -109,24 +119,24 @@ function acInput() {
 }
 
 function deleteInput() {
-    if (calculator.secondNum != null) {
+    if (calculator.secondNum) {
         if (calculator.secondNum.length === 1) {
             calculator.secondNum = null;
-            display.textContent = calculator.firstNum + operations[calculator.operator];
+            updateDisplay();
         } else {
         calculator.secondNum = calculator.secondNum.slice(0, -1);
-        display.textContent = calculator.firstNum + operations[calculator.operator] + calculator.secondNum;
+        updateDisplay();
         }
-    } else if (calculator.operator != null && calculator.secondNum === null) {
+    } else if (calculator.operator && !calculator.secondNum) {
         calculator.operator = null;
-        display.textContent = calculator.firstNum;
-    } else if (calculator.firstNum != null && calculator.operator === null) {
+        updateDisplay();
+    } else if (calculator.firstNum && !calculator.operator) {
        if (calculator.firstNum.length === 1) {
         calculator.firstNum = null;
         display.textContent = "";
        } else {
         calculator.firstNum = calculator.firstNum.slice(0, -1);
-        display.textContent = calculator.firstNum;
+        updateDisplay();
        }
     }
 }
@@ -142,7 +152,7 @@ buttons.forEach((button) => {
         } else if (button.id === "calculate") {
             calculateInput();
         } else if (button.id === "clear") {
-            acInput();
+            clearInput();
         } else if (button.id === "delete") {
             deleteInput();
         } else if (button.id === "posneg") {
@@ -182,7 +192,7 @@ const calculator = {
         secondNum = secondNum.toString();
 
         if (firstNum.includes('.') || secondNum.includes('.')) {
-            return calculator[operator](parseFloat(firstNum), parseFloat(secondNum));
+            return calculator[operator](parseFloat(firstNum), parseFloat(secondNum)).toFixed(4);
         } else {
             return calculator[operator](parseInt(firstNum), parseInt(secondNum));
         }
