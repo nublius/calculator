@@ -26,7 +26,7 @@ function numberInput(id) {
     if (calculator.firstNum === null) {
         calculator.firstNum = numbers[id];
         display.textContent = calculator.firstNum;
-    } else if (calculator.answer) {
+    } else if (calculator.answer && !calculator.operator) {
         calculator.answer = null;
         calculator.firstNum = numbers[id];
         display.textContent = calculator.firstNum;
@@ -177,6 +177,12 @@ const calculator = {
     },
 
     calculate: function(operator, firstNum, secondNum) {
-        return calculator[operator](parseInt(firstNum), parseInt(secondNum));
+        firstNum = firstNum.toString();
+        secondNum = secondNum.toString();
+        if (firstNum.includes('.') || secondNum.includes('.')) {
+            return calculator[operator](parseFloat(firstNum), parseFloat(secondNum));
+        } else {
+            return calculator[operator](parseInt(firstNum), parseInt(secondNum));
+        }
     }, 
 };
